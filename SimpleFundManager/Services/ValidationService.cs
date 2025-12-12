@@ -74,4 +74,14 @@ public static class ValidationService
             LogService.Write($"Fund not found: {name}");
         }
     }
+
+    public static bool ConfirmExistingFunds(FundManager manager)
+    {
+        if (manager.GetFundCount() == 0)
+        {
+            ConsoleColorService.Warning("\nNo existing funds.");
+            return false;
+        }
+        return true;
+    }
 }

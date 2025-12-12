@@ -34,6 +34,7 @@ public class ActionController
 
     public void CreateTransaction(FundManager manager)
     {
+        if (!ValidationService.ConfirmExistingFunds(manager)) return;
         ConsoleColorService.Info("\nAvailable funds:");
 
         foreach (var f in manager.Funds)
@@ -60,7 +61,7 @@ public class ActionController
 
         foreach (var f in manager.Funds)
             Console.WriteLine($"{f.Name}: {f.Value}");
-
+        if (!ValidationService.ConfirmExistingFunds(manager)) return;
         var decision = ValidationService.ReadRequiredString("\nShow transactions? (t)");
 
         if (decision.ToLower() == "t")
@@ -76,6 +77,7 @@ public class ActionController
 
     public void DeleteFund(FundManager manager)
     {
+        if (!ValidationService.ConfirmExistingFunds(manager)) return; 
         ConsoleColorService.Warning("\nThis is irreversible.");
         var confirmation = ValidationService.ReadRequiredString("Are you sure? (y/n)");
 

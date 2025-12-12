@@ -12,9 +12,11 @@ public class FundManager
     internal Fund? GetFund(string name)
     {
         var result = _portfolio.Funds.FirstOrDefault(f =>
-            f.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            f.Name.Equals(name));
         return result;
     }
+
+    public int GetFundCount() => _portfolio.Funds.Count;
 
     public void AddFund(string name, decimal baseValue)
     {
