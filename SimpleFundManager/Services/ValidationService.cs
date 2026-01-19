@@ -46,20 +46,22 @@ public static class ValidationService
             if (!string.IsNullOrWhiteSpace(input))
                 return input.Trim();
 
-
             ConsoleColorService.Warning("Input cannot be empty.");
             LogService.Write("Empty required string input.");
         }
     }
 
-    public static string ConfirmTheFund(FundManager manager, string message)
+    public static string? ConfirmTheFund(FundManager manager, string message)
     {
-        ConsoleColorService.Info(message);
+        ConsoleColorService.Info($"{message} (or type 'exit' to cancel)");
 
         while (true)
         {
             ConsoleColorService.Prompt("> ");
             var name = Console.ReadLine();
+
+            if (string.Equals(name, "exit", StringComparison.OrdinalIgnoreCase))
+                return null;
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -70,8 +72,29 @@ public static class ValidationService
             if (manager.FindFund(name))
                 return name;
 
-            ConsoleColorService.Warning("Fund not found. Try again.");
+            ConsoleColorService.Warning($"Fund '{name}' not found. Try again or type 'exit'.");
             LogService.Write($"Fund not found: {name}");
+        }
+    }
+
+    public static decimal ReadDecimalOrExit()
+    {
+        while (true)
+        {
+            ConsoleColorService.Prompt("> ");
+            var input = Console.ReadLine();
+
+            if (input == "0" || string.Equals(input, "exit", StringComparison.OrdinalIgnoreCase))
+            {
+                return 0;
+            }
+
+            if (decimal.TryParse(input, out var result))
+            {
+                return result;
+            }
+
+            ConsoleColorService.Warning("Invalid input. Please enter a valid number or type '0' to stop.");
         }
     }
 

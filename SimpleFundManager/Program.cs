@@ -15,7 +15,9 @@ internal class Program
             ConsoleColorService.Info("\nSelect your action:\n");
             Console.WriteLine("(f) add a fund");
             Console.WriteLine("(t) add a transaction");
+            Console.WriteLine("(m) move money (transfer)");
             Console.WriteLine("(s) show funds/transactions");
+            Console.WriteLine("(p) project growth");
             Console.WriteLine("(d) delete funds");
             Console.WriteLine("(q) quit and save\n");
 
@@ -31,7 +33,9 @@ internal class Program
                 {
                     case 'f': controller.CreateFund(manager); break;
                     case 't': controller.CreateTransaction(manager); break;
+                    case 'm': controller.TransferFunds(manager); break;
                     case 's': controller.ShowFunds(manager); break;
+                    case 'p': controller.ProjectGrowth(manager); break;
                     case 'd': controller.DeleteFund(manager); break;
                     case 'q': controller.QuitAndSave(manager); break;
 

@@ -18,10 +18,10 @@ public class FundManager
 
     public int GetFundCount() => _portfolio.Funds.Count;
 
-    public void AddFund(string name, decimal baseValue)
+    public void AddFund(string name, decimal baseValue, decimal targetValue)
     {
-        _portfolio.Funds.Add(new Fund(name, baseValue));
-        LogService.Write($"Fund added: {name}, value: {baseValue}");
+        _portfolio.Funds.Add(new Fund(name, baseValue, targetValue));
+        LogService.Write($"Fund added: {name}, value: {baseValue}, target: {targetValue}");
     }
     public void RemoveFund(string name)
     {
@@ -74,6 +74,33 @@ public class FundManager
             Console.WriteLine($"{i + 1}: Amount = {t.Amount}, Date = {t.Date:yyyy-MM-dd HH:mm:ss}");
         }
     }
+
+    public void Transfer(string sourceName, string destName, decimal amount)
+    {
+        if (sourceName == destName)
+            throw new ArgumentException("Source and destination cannot be the same.");
+
+        var source = GetFund(sourceName);
+        var dest = GetFund(destName);
+
+        if (source == null) throw new ArgumentException("Source fund not found.");
+        if (dest == null) throw new ArgumentException("Destination fund not found.");
+
+        if (source.Value < amount)
+            throw new InvalidOperationException($"Insufficient funds. Source has {source.Value}, tried to move {amount}.");
+
+        // Deduct from Source
+        source.Value -= amount;
+        _portfolio.Transactions.Add(new Transaction(sourceName, -amount));
+
+        // Add to Destination
+        dest.Value += amount;
+        _portfolio.Transactions.Add(new Transaction(destName, amount));
+
+        LogService.Write($"Transfer: {amount} moved from {sourceName} to {destName}");
+    }
+    public decimal GetTotalValue() => _portfolio.Funds.Sum(f => f.Value);
+    public int GetTotalTransactionCount() => _portfolio.Transactions.Count;
 
 
     public void SaveToFile(string path)
