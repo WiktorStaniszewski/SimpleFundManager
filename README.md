@@ -11,7 +11,6 @@ SimpleFundManager to prosta aplikacja uruchamiana w trybie konsolowym, umożliwi
 - Dodawanie transakcji powiązanych z wybranym funduszem.
 - Automatyczne aktualizowanie wartości funduszu na podstawie wprowadzonych transakcji.
 - Wyświetlanie listy funduszy.
-- Wyświetlanie transakcji (z paginacją, filtrowaniem i sortowaniem – jeśli zostało dodane).
 - Zapisywanie oraz wczytywanie danych z pliku JSON.
 - Zapisywanie zdarzeń i błędów w pliku logów.
 - Walidację danych wejściowych.
@@ -22,7 +21,7 @@ Projekt został podzielony na warstwy, aby zachować czytelność i dobre prakty
 
 - **.NET 8.0** lub nowszy
 - System **Windows**, **Linux** lub **macOS**
-- Dowolne IDE obsługujące C#, np. **Visual Studio 2022** lub **JetBrains Rider**
+- Dowolne IDE obsługujące C#, np. **Visual Studio 2022**
 
 ## 3. Struktura projektu
 
@@ -63,8 +62,6 @@ SimpleFundManager/
 - Aktualizacja wartości funduszu
 - Podgląd transakcji:
   - Ostatnie 20 transakcji
-  - Sortowanie od najnowszych
-  - Filtrowanie po nazwie funduszu
   - Indeksowanie transakcji
 
 ### 4.3. Zapisywanie i odczyt danych
@@ -124,3 +121,4 @@ Fund added.
 
 **Wiktor Staniszewski**  
 Projekt edukacyjny wykonany w ramach zajęć programowania w C#.
+Plik README wygenerowany przez AI.
